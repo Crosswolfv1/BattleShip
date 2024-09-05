@@ -43,4 +43,11 @@ RSpec.describe Cell do
             expect(@cell2.empty?).to eq(true)
         end
     end
+
+    describe '#fired_upon?' do
+        it 'hasnt been fired upon' do
+            expect(@cell1.fired_upon?).to eq(false)
+            expect(@cell2.fired_upon?).to eq(false)
+        end
+    end
 end
