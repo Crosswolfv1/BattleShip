@@ -1,2 +1,2 @@
 # BattleShip
-## This si the README for teh Battleship project for Jeremiah & Montana
+## This is the README for the Battleship project for Jeremiah & Montana
