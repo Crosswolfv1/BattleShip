@@ -32,4 +32,15 @@ RSpec.describe Cell do
             expect(@cell1.empty?).to eq(true)
         end
     end
+
+    describe '#place_ship' do
+        it 'can place a ship' do
+            @cell1.place_ship(@cruiser)
+
+            expect(@cell1.ship).to eq(@cruiser)
+            expect(@cell1.empty?).to eq(false)
+            expect(@cell2.ship).to eq(nil)
+            expect(@cell2.empty?).to eq(true)
+        end
+    end
 end
