@@ -50,4 +50,12 @@ RSpec.describe Cell do
             expect(@cell2.fired_upon?).to eq(false)
         end
     end
+
+    describe '#fire_upon' do
+        it 'cell is fired upon' do #also reduces ship Health by 1
+            @cell1.fire_upon
+            expect(@cell1.fired_upon?).to eq(true)
+            expect(@cell2.fired_upon?).to eq(false)
+        end
+    end
 end
