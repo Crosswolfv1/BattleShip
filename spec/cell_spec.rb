@@ -5,6 +5,7 @@ RSpec.describe Cell do
         @cell1 = Cell.new("A1")
         @cell2 = Cell.new("B1")
         @cell3 = Cell.new("A2")
+        @cruiser = Ship.new("Cruiser", 3)
     end
 
     describe '#initialize' do
@@ -26,4 +27,9 @@ RSpec.describe Cell do
         end
     end
 
+    describe '#empty?' do
+        it 'is empty' do
+            expect(@cell1.empty?).to eq(true)
+        end
+    end
 end
