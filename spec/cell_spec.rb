@@ -20,5 +20,10 @@ RSpec.describe Cell do
             expect(@cell2.coordinate).to eq("B1")
             expect(@cell2.coordinate).to eq("A2")
         end
+
+        it 'can have a ship in it' do
+            expect(@cell1.ship).to eq(nil)
+        end
     end
+
 end
