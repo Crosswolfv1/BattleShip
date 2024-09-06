@@ -63,23 +63,32 @@ RSpec.describe Cell do
         it 'render a cell to be .' do
             expect(@cell1.render).to eq(".")
         end
+
         it 'renders a cell to be M' do
             @cell1.fire_upon
             expect(@cell1.render).to eq("M")
         end  
+
         it 'renders a cell to be . if a ship is there' do
             @cell2.place_ship(@cruiser)
             expect(@cell2.render).to eq(".")
         end  
+
         it  'renders a cell to be a ship' do
+            @cell2.place_ship(@cruiser)
             expect(@cell2.render(true)).to eq("S")
         end
+
         it 'renders a cell to be hit' do
+            @cell2.place_ship(@cruiser)
             @cell2.fire_upon
             expect(@cell2.render).to eq("H")
         end
+
         it 'it renders when a ship is sunk' do
+            @cell2.place_ship(@cruiser)
             expect(@cruiser.sunk?).to eq(false)
+            @cell2.fire_upon
             @cell2.fire_upon
             @cell2.fire_upon
             expect(@cruiser.sunk?).to eq(true)
