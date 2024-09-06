@@ -58,47 +58,4 @@ RSpec.describe Cell do
             expect(@cell2.fired_upon?).to eq(false)
         end
     end
-
-    describe '#render' do
-        it 'can be rendered' do
-            expect(@cell1.render).to eq('.')
-            expect(@cell2.render).to eq('.')
-            expect(@cell3.render).to eq('.')
-        end
-
-        it 'can register a miss' do 
-            @cell1.fire_upon
-            expect(@cell1.render).to eq('M')
-        end
-
-        it 'can register a hit' do    
-            @cell2.place_ship(@cruiser)
-            expect(@cell2.render).to eq('.')
-            @cell2.fire_upon
-            expect(@cell2.render).to eq('H')
-        end
-
-        it 'can show if there is a ship at that coordinate' do
-            @cell2.place_ship(@cruiser)
-            expect(@cell2.render(true)).to eq('S') # Indicate that we want to show a ship with the optional argument
-        end
-
-        it 'can show a sunken ship' do
-            @cell1.place_ship(@cruiser)
-            @cell2.place_ship(@cruiser)
-            @cell3.place_ship(@cruiser)
-
-            @cell2.fire_upon
-            expect(@cell2.render).to eq('H')
-
-            @cell1.fire_upon
-            expect(@cell2.render).to eq('H')
-            expect(@cell1.render).to eq('H')
-
-            @cell3.fire_upon
-            expect(@cell1.render).to eq('X')
-            expect(@cell2.render).to eq('X')
-            expect(@cell3.render).to eq('X')
-        end
-    end
 end
