@@ -1,4 +1,4 @@
-require './spec_helper'
+require './spec/spec_helper'
 
 RSpec.describe Cell do
     before(:each) do
@@ -19,7 +19,7 @@ RSpec.describe Cell do
 
         it 'can have a different coordinate' do
             expect(@cell2.coordinate).to eq("B1")
-            expect(@cell2.coordinate).to eq("A2")
+            expect(@cell3.coordinate).to eq("A2")
         end
 
         it 'can have a ship in it' do
