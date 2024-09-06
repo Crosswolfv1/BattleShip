@@ -25,4 +25,11 @@ class Cell
         @fired_upon = true #marks cell as fired upon
         @ship.hit if @ship # reduce ship health by 1
     end
+
+    def render(unhidden = false)
+        unhidden && @ship && !fired_upon? ? 'S' : 
+        fired_upon? && @ship.nil? ? 'M' : 
+        fired_upon? && @ship && @ship.health == 0 ? 'X' : 
+        fired_upon? && @ship && @ship.health != 0 ? 'H' : '.'
+    end
 end
