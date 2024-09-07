@@ -49,4 +49,16 @@ class Board
             end
         end
     end
+
+    def render(unhidden = false)
+        output = "  1 2 3 4 \n"
+        rows = ("A".."D").map do |row|
+            contents = (1..4).map do |col|
+                coordinate = "#{row}#{col}"
+                @cells[coordinate].render(unhidden)
+            end.join(" ")
+        "#{row} #{contents} \n"
+        end
+        output + rows.join
+    end
 end
