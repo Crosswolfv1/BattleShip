@@ -21,4 +21,20 @@ class Board
         @cells.keys.include?(coordinate)        
     end
 
+    def valid_placement?(ship, coordinates)
+
+        coordinates.map do |coordinate|
+            [coordinate[0].ord,
+            coordinate[1].to_i]
+        end.each_cons(2).all? {|(letter1, num1), (letter2, num2)|
+        if letter1 == letter2
+            num2 == num1 + 1
+        elsif num1 == num2
+            letter2 == letter1 + 1
+        else
+            false
+        end}
+        # ship.length == coordinates.count
+    end
+
 end
