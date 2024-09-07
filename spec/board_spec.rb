@@ -19,4 +19,13 @@ RSpec.describe Board do
         expect(@board.cells.keys[2]).to eq("A3")
     end
 
+    it '#valid_coordinate?' do
+        expect(@board.valid_coordinate?("A1")).to eq true
+        expect(@board.valid_coordinate?("A20")).to eq false
+        expect(@board.valid_coordinate?("B2")).to eq true
+        expect(@board.valid_coordinate?("C3")).to eq true
+        expect(@board.valid_coordinate?("D4")).to eq true
+        expect(@board.valid_coordinate?("D5")).to eq false
+    end
+
 end
