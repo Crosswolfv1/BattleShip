@@ -1,29 +1,31 @@
 class Computer
 
-    def initialize
-        @board = Board.new
+    attr_reader :board
+
+    def initialize(board)
+        @board = board
     end
 
     def generate_coordinates(length)
-        possible_rows = ("A".."D").to_a.sample
-        possible_cols = (1..4).to_a.sample
         coordinates = []
 
         while coordinates.length != length
             coordinates.clear
+            possible_rows = ("A".."D").to_a.sample
+            possible_cols = (1..4).to_a.sample
             orientation = ["horizontal", "vertical"].sample
             if orientation =="horizontal"
                 length.times do |i| 
-                    col = possible_cols
-                    if col + i <= 4
-                        coordinates << "#{possible_rows}#{col + i}"
+                    col = possible_cols + i
+                    if col <= 4
+                        coordinates << "#{possible_rows}#{col}"
                     end
                 end
             else orientation == "vertical"
                 length.times do |o|
-                    row = possible_rows
-                    if (row.ord + o).chr <= "D"
-                        coordinates << "#{(row.ord + o).chr}#{possible_cols}"
+                    row = (possible_rows.ord + o).chr
+                    if row <= "D"
+                        coordinates << "#{row}#{possible_cols}"
                     end
                 end
             end
@@ -32,7 +34,13 @@ class Computer
     end
 
 
-    def place_ships(ship)
-        @board.valid_placement?(ship, coordinates)
+    def place_ships_randomly(ship)
+        coordinates =[]
+
+        until @board.valid_placement?(ship, coordinates)
+            coordinates = generate_coordinates(ship.length)
+        end
+       
+        @board.place(ship, coordinates)
     end
 end
