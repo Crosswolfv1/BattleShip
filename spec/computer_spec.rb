@@ -27,4 +27,15 @@ RSpec.describe Computer do
         expect(cell.ship).to eq(@cruiser)
         end
     end
+
+    it '#generate_random_coordinate' do
+        100.times do
+            coordinate = @computer.generate_random_coordinate
+            row = coordinate[0]
+            col = coordinate[1..-1].to_i
+
+            expect(("A".."D").to_a).to include(row)
+            expect((1..4).to_a).to include(col)
+        end
+    end
 end
