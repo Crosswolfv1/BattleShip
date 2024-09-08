@@ -43,4 +43,10 @@ class Computer
        
         @board.place(ship, coordinates)
     end
+
+    def generate_random_coordinate
+        rows = ("A".."D").to_a
+        cols = (1..4).to_a
+        "#{rows.sample}#{cols.sample}"
+    end
 end
