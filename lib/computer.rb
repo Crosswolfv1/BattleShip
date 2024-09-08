@@ -49,4 +49,13 @@ class Computer
         cols = (1..4).to_a
         "#{rows.sample}#{cols.sample}"
     end
+
+    def fire_at_random
+        coordinate = generate_random_coordinate
+        while @board.cells[coordinate].fired_upon?
+            coordinate = generate_random_coordinate
+        end
+        @board.cells[coordinate].fire_upon
+        @board.cells[coordinate].render
+    end
 end
