@@ -38,4 +38,18 @@ RSpec.describe Computer do
             expect((1..4).to_a).to include(col)
         end
     end
+
+    it '#fire_at_random fires at random coordinate' do
+        inital_shot_result = @computer.fire_at_random
+        expect(["M", "H", "X"]).to include(inital_shot_result)
+    end
+
+    it '#fire_at_random will not shoot same coordinate twice' do
+        shots = []
+        10.times do
+            result = @computer.fire_at_random
+            shots << result
+        end
+        expect(shots.uniq.length).to be(1)
+    end
 end
