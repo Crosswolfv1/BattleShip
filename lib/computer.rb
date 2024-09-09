@@ -4,6 +4,7 @@ class Computer
 
     def initialize(board)
         @board = board
+        @coordinates = []
     end
 
     def generate_coordinates(length)
@@ -57,6 +58,7 @@ class Computer
         end
         @board.cells[coordinate].fire_upon
         @board.cells[coordinate].render
+        @coordinates << coordinate
         coordinate
     end
 end
