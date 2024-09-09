@@ -40,7 +40,8 @@ RSpec.describe Computer do
     end
 
     it '#fire_at_random fires at random coordinate' do
-        inital_shot_result = @computer.fire_at_random
+        coordinate = @computer.fire_at_random
+        inital_shot_result = @computer.board.cells[coordinate].render
         expect(["M", "H", "X"]).to include(inital_shot_result)
     end
 
@@ -50,6 +51,17 @@ RSpec.describe Computer do
             result = @computer.fire_at_random
             shots << result
         end
-        expect(shots.uniq.length).to be(1)
+        expect(shots.uniq.length).to be(10)
+    end
+
+    it 'can sometimes hit' do
+        @board.place(@cruiser, ['A1', 'A2', 'A3'])
+        hits = []
+        14.times do
+            shots = @computer.fire_at_random
+            hits << @computer.board.cells[shots].render
+        end
+        binding.pry
+        expect(hits).to include("H", "M")
     end
 end
