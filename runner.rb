@@ -23,24 +23,24 @@ shots = []
 
 @computer.place_ships_randomly(@cruiser)
 @computer.place_ships_randomly(@submarine)
-puts "I have laid out my ships.\nYou now need to lay out your ships.\nthe #{@cruiser.name} is #{@cruiser.length} units long."
-puts @player_board.render(true)
-puts "Enter the squares for the #{@cruiser.name} (#{@cruiser.length} spaces):"
-coordinates = gets.chomp.split(" ")
-if @player_board.valid_placement?(@cruiser, coordinates) == true
-    @player_board.place(@cruiser, coordinates)
-else
-    puts "invalid coordinates please try again" #loop back to 27 @player_board.render(true)
-end
+# puts "I have laid out my ships.\nYou now need to lay out your ships.\nthe #{@cruiser.name} is #{@cruiser.length} units long."
+# puts @player_board.render(true)
+# puts "Enter the squares for the #{@cruiser.name} (#{@cruiser.length} spaces):"
+# coordinates = gets.chomp.split(" ")
+# if @player_board.valid_placement?(@cruiser, coordinates) == true
+#     @player_board.place(@cruiser, coordinates)
+# else
+#     puts "invalid coordinates please try again" #loop back to 27 @player_board.render(true)
+# end
 
-puts @player_board.render(true)
-puts "Enter the squares for the #{@submarine.name} (#{@submarine.length} spaces):"
-coordinates = gets.chomp.split(" ")
-if @player_board.valid_placement?(@submarine, coordinates) == true
-    @player_board.place(@submarine, coordinates)
-else
-    puts "invalid coordinates please try again" #loop back to 36 @player_board.render(true)
-end
+# puts @player_board.render(true)
+# puts "Enter the squares for the #{@submarine.name} (#{@submarine.length} spaces):"
+# coordinates = gets.chomp.split(" ")
+# if @player_board.valid_placement?(@submarine, coordinates) == true
+#     @player_board.place(@submarine, coordinates)
+# else
+#     puts "invalid coordinates please try again" #loop back to 36 @player_board.render(true)
+# end
 
 ###while computer ships or playerships != sunk
 puts "=============COMPUTER BOARD============="
@@ -57,7 +57,7 @@ else
     puts "Invalid coordinate" #loop to 46
 end
 
-@computer.fire_at_random
+@computer.fire_at_random(@player_board)
 player_last_shot = shots.last
 computer_last_shot = @computer.coordinates.last
 puts "You last shot on #{player_last_shot.coordinate} was a #{@comp_board.cells[player_last_shot.coordinate].render}"
