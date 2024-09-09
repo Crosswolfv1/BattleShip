@@ -24,28 +24,26 @@ class Board
     def valid_placement?(ship, coordinates)
 
         return false unless coordinates.count == ship.length
-        return false unless coordinates.all? do |coordinate|
-            @cells[coordinate].empty?
-        end 
-            coordinates.map do |coordinate|
-                [coordinate[0].ord,
-                coordinate[1].to_i]
-            end.each_cons(2).all? {|(letter1, num1), (letter2, num2)|
-            if letter1 == letter2
-                num2 == num1 + 1
-            elsif num1 == num2
-                letter2 == letter1 + 1
-        else
-            false
-        end}
+        return false unless coordinates.all? { |coordinate| @cells[coordinate].empty? }
+
+         coverted_coordinates = coordinates.map do |coordinate|
+            [coordinate[0].ord, coordinate[1].to_i]
+            end
+            coverted_coordinates.each_cons(2).all? {|(row1, col1), (row2, col2)|
+                if row1 == row2
+                col2 == col1 + 1
+                elsif col1 == col2
+                row2 == row1 + 1
+                else
+                false
+            end}
     end
 
     def place(ship, coordinates)
-        if valid_placement?(ship, coordinates) == true
+        if valid_placement?(ship, coordinates)
             coordinates.each do |coordinate|
-                @cells.find_all do |cell|
-                    cell.include?(coordinate) && !cell.empty? ?  cell[1].place_ship(ship) : nil
-                end
+                cell = @cells[coordinate]
+                cell.place_ship(ship) if cell && cell.empty? 
             end
         end
     end
