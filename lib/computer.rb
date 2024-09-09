@@ -6,6 +6,7 @@ class Computer
     def initialize(board)
         @board = board
         @coordinates = []
+        @coordinates = []
     end
 
     def generate_coordinates(length)
@@ -52,9 +53,9 @@ class Computer
         "#{rows.sample}#{cols.sample}"
     end
 
-    def fire_at_random
+    def fire_at_random(board)
         coordinate = generate_random_coordinate
-        while @board.cells[coordinate].fired_upon?
+        while board.cells[coordinate].fired_upon?
             coordinate = generate_random_coordinate
         end
         @board.cells[coordinate].fire_upon

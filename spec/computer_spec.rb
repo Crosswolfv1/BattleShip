@@ -3,6 +3,7 @@ require './spec/spec_helper'
 RSpec.describe Computer do
     before(:each) do
     @board = Board.new
+    @player_board = Board.new
     @computer = Computer.new(@board)
     @cruiser = Ship.new("Cruiser", 3)
     @submarine = Ship.new("Submarine", 2)
@@ -40,26 +41,26 @@ RSpec.describe Computer do
     end
 
     it '#fire_at_random fires at random coordinate' do
-        coordinate = @computer.fire_at_random
-        inital_shot_result = @computer.board.cells[coordinate].render
+        coordinate = @computer.fire_at_random(@player_board)
+        inital_shot_result = @player_board.cells[coordinate].render
         expect(["M", "H", "X"]).to include(inital_shot_result)
     end
 
     it '#fire_at_random will not shoot same coordinate twice' do
         shots = []
         10.times do
-            result = @computer.fire_at_random
+            result = @computer.fire_at_random(@player_board)
             shots << result
         end
         expect(shots.uniq.length).to be(10)
     end
 
     it 'can sometimes hit' do
-        @board.place(@cruiser, ['A1', 'A2', 'A3'])
+        @player_board.place(@cruiser, ['A1', 'A2', 'A3'])
         hits = []
         14.times do
-            shots = @computer.fire_at_random
-            hits << @computer.board.cells[shots].render
+            shots = @computer.fire_at_random(@player_board)
+            hits << @player_board.cells[shots].render
         end
         expect(hits).to include("H", "M")
     end
