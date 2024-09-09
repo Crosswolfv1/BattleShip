@@ -61,7 +61,6 @@ RSpec.describe Computer do
             shots = @computer.fire_at_random
             hits << @computer.board.cells[shots].render
         end
-        binding.pry
         expect(hits).to include("H", "M")
     end
 end
