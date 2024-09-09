@@ -57,5 +57,6 @@ class Computer
         end
         @board.cells[coordinate].fire_upon
         @board.cells[coordinate].render
+        coordinate
     end
 end
