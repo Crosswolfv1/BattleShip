@@ -1,6 +1,7 @@
 class Computer
 
-    attr_reader :board
+    attr_reader :board,
+                :coordinates
 
     def initialize(board)
         @board = board
