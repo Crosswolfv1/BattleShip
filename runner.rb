@@ -23,24 +23,30 @@ shots = []
 
 @computer.place_ships_randomly(@cruiser)
 @computer.place_ships_randomly(@submarine)
-# puts "I have laid out my ships.\nYou now need to lay out your ships.\nthe #{@cruiser.name} is #{@cruiser.length} units long."
-# puts @player_board.render(true)
-# puts "Enter the squares for the #{@cruiser.name} (#{@cruiser.length} spaces):"
-# coordinates = gets.chomp.split(" ")
-# if @player_board.valid_placement?(@cruiser, coordinates) == true
-#     @player_board.place(@cruiser, coordinates)
-# else
-#     puts "invalid coordinates please try again" #loop back to 27 @player_board.render(true)
-# end
+puts "I have laid out my ships.\nYou now need to lay out your ships.\nthe #{@cruiser.name} is #{@cruiser.length} units long."
+puts @player_board.render(true)
+loop do 
+    puts "Enter the squares for the #{@cruiser.name} (#{@cruiser.length} spaces):"
+    coordinates = gets.chomp.split(" ")
+    if @player_board.valid_placement?(@cruiser, coordinates) == true
+        @player_board.place(@cruiser, coordinates)
+       break
+    else
+        puts "invalid coordinates please try again" 
+    end
+end
 
-# puts @player_board.render(true)
-# puts "Enter the squares for the #{@submarine.name} (#{@submarine.length} spaces):"
-# coordinates = gets.chomp.split(" ")
-# if @player_board.valid_placement?(@submarine, coordinates) == true
-#     @player_board.place(@submarine, coordinates)
-# else
-#     puts "invalid coordinates please try again" #loop back to 36 @player_board.render(true)
-# end
+puts @player_board.render(true)
+loop do 
+    puts "Enter the squares for the #{@submarine.name} (#{@submarine.length} spaces):"
+    coordinates = gets.chomp.split(" ")
+    if @player_board.valid_placement?(@submarine, coordinates) == true
+        @player_board.place(@submarine, coordinates)
+       break
+    else
+        puts "invalid coordinates please try again" 
+    end
+end
 
 ###while computer ships or playerships != sunk
 puts "=============COMPUTER BOARD============="
