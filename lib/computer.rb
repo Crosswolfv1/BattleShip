@@ -58,8 +58,8 @@ class Computer
         while board.cells[coordinate].fired_upon?
             coordinate = generate_random_coordinate
         end
-        @board.cells[coordinate].fire_upon
-        @board.cells[coordinate].render
+        board.cells[coordinate].fire_upon
+        board.cells[coordinate].render
         @coordinates << coordinate
         coordinate
     end
