@@ -22,7 +22,7 @@ class Board
     end
 
     def valid_placement?(ship, coordinates)
-
+        return false unless coordinates.all? { |coordinate| valid_coordinate?(coordinate) }
         return false unless coordinates.count == ship.length
         return false unless coordinates.all? { |coordinate| @cells[coordinate].empty? }
 
