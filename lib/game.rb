@@ -29,6 +29,33 @@ class Game
                 welcome_message
             end
     end
-    
-    
+
+    def place_player_ships
+        cruiser = Ship.new("Cruiser", 3)
+        submarine = Ship.new("Submarine", 2)
+
+        puts @player_board.render(true)
+
+        #place the cruiser
+        puts "Enter the coordinates you would like to place your cruiser (3 are needed):"
+        input = gets.chomp.upcase.split
+        until @player_board.valid_placement?(cruiser, input)
+            puts "Invalid coordinates: Try again..."
+            input = gets.chomp.upcase.split
+        end
+        @player_board.place(cruiser, input)
+
+        #place submarine
+        puts @player_board.render(true)
+        puts "Enter the coordinates you would like to place your submarine (2 are needed):"
+        input = gets.chomp.upcase.split
+        until @player_board.valid_placement?(submarine, input)
+            puts "Invalid coordinates: Try again..."
+            input = gets.chomp.upcase.split
+        end
+        @player_board.place(submarine, input)
+
+        puts "Player has placed their ships."
+        puts @player_board.render(true)
+    end
 end
