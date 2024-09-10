@@ -38,7 +38,7 @@ RSpec describe Game do
             @player_board.place(@player_cruiser, ["A1", "A2", "A3"])
   
             initial_fired_upon = @player_board.cells.values.count { |cell| cell.fired_upon? }
-            @round.computer_turn
+            @game.computer_turn
   
             final_fired_upon = @player_board.cells.values.count { |cell| cell.fired_upon? }
             expect(final_fired_upon).to eq(initial_fired_upon + 1)
@@ -56,8 +56,8 @@ RSpec describe Game do
             @player_board.cells["B1"].fire_upon
             @player_board.cells["B2"].fire_upon
 
-            expect(@round.all_ships_sunk?(@player_board)).to be true
-            expect(@round.game_over?).to be true
+            expect(@game.all_ships_sunk?(@player_board)).to be true
+            expect(@game.game_over?).to be true
         end
 
         it "ends the game when all of computer's ships are sunk" do
@@ -70,8 +70,8 @@ RSpec describe Game do
             @computer_board.cells["B1"].fire_upon
             @computer_board.cells["B2"].fire_upon
   
-            expect(@round.all_ships_sunk?(@computer_board)).to be true
-            expect(@round.game_over?).to be true
+            expect(@game.all_ships_sunk?(@computer_board)).to be true
+            expect(@game.game_over?).to be true
         end
     end
 end
