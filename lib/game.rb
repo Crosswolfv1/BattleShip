@@ -97,5 +97,17 @@ class Game
         end
     end_game_message
     end
-    
+
+    def player_turn
+        puts "It's your turn! Enter a coordinate to fire upon:"
+        coordinate = gets.chomp.upcase
+        until @computer_board.valid_coordinate?(coordinate) && !@computer_board.cells[coordinate].fired_upon?
+            puts "invalid coordinate or previously fired upon. Try again:"
+            coordinate = gets.chomp.upcase
+        end
+        @computer_board.cells[coordinate].fire_upon
+
+        puts "You fired at #{coordinate}. Result: #{@computer_board.cells[coordinate].render}"
+    end
+
 end
