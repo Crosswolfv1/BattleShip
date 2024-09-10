@@ -110,4 +110,10 @@ class Game
         puts "You fired at #{coordinate}. Result: #{@computer_board.cells[coordinate].render}"
     end
 
+    def computer_turn
+        puts "Computer's turn..."
+        coordinate = @computer.fire_at_random(@player_board)
+        puts "Computer fired at #{coordinate}. Result: #{@player_board.cells[coordinate].render}"
+    end
+    
 end
