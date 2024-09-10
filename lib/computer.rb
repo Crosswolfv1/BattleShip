@@ -6,7 +6,6 @@ class Computer
     def initialize(board)
         @board = board
         @coordinates = []
-        @coordinates = []
     end
 
     def generate_coordinates(length)
