@@ -1,11 +1,11 @@
 require 'spec_helper'
 
-RSpec describe Game do
+RSpec.describe Game do
     before(:each) do
-        @board = Board.new
+        @computer_board = Board.new
         @player_board = Board.new
-        @computer = Computer.new(@board)
-        @game = Game.new(@player_board, @board, @computer)
+        @computer = Computer.new(@computer_board)
+        @game = Game.new(@player_board, @computer_board, @computer)
         @player_cruiser = Ship.new("Cruiser", 3)
         @player_submarine = Ship.new("Submarine", 2)
         @computer_cruiser = Ship.new("Cruiser", 3)
@@ -16,27 +16,35 @@ RSpec describe Game do
         it 'exists' do
             expect(@game).to be_an_instance_of(Game)
             expect(@game.player_board).to eq(@player_board)
-            expect(@game.computer_board).to eq(@board)
+            expect(@game.computer_board).to eq(@computer_board)
             expect(@game.computer).to eq(@computer)
         end
     end
 
     describe 'player places ships' do
-        xit 'prompts the player and places ships on the board' do
-        #   allow(@game).to receive(:gets).and_return("A1 A2 A3")
+        it 'prompts the player and places ships on the board' do
+            allow($stdout).to receive(:puts)
+            allow_any_instance_of(Game).to receive(:gets).and_return("A1 A2 A3", "B1 B2")
+            
+            @game.place_player_ships
           
-        #   expect(@player_board.cells["A1"].ship).to be_an_instance_of(Ship)
-        #   expect(@player_board.cells["A2"].ship).to be_an_instance_of(Ship)
-        #   expect(@player_board.cells["A3"].ship).to be_an_instance_of(Ship)
+            expect(@player_board.cells["A1"].ship).to be_an_instance_of(Ship)
+            expect(@player_board.cells["A2"].ship).to be_an_instance_of(Ship)
+            expect(@player_board.cells["A3"].ship).to be_an_instance_of(Ship)
+            expect(@player_board.cells["B1"].ship).to be_an_instance_of(Ship)
+            expect(@player_board.cells["B2"].ship).to be_an_instance_of(Ship)
         end
       end
 
     
       describe 'player turn' do
         it "fires upon a valid coordinate on the computer's board" do
+            allow($stdout).to receive(:puts)
+
             @computer_board.place(@computer_cruiser, ["A1", "A2", "A3"])
             expect(@computer_board.cells["A1"].fired_upon?).to be false
-      
+            
+            allow_any_instance_of(Game).to receive(:gets).and_return("A1")
             @game.player_turn("A1")
       
             expect(@computer_board.cells["A1"].fired_upon?).to be true
@@ -46,6 +54,7 @@ RSpec describe Game do
 
     describe '#computer_turn' do
         it "fires at a valid random coordinate on the player's board" do
+            allow($stdout).to receive(:puts)
             @player_board.place(@player_cruiser, ["A1", "A2", "A3"])
   
             initial_fired_upon = @player_board.cells.values.count { |cell| cell.fired_upon? }
