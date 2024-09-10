@@ -5,51 +5,73 @@ RSpec describe Game do
         @board = Board.new
         @player_board = Board.new
         @computer = Computer.new(@board)
-        @cruiser = Ship.new("Cruiser", 3)
-        @submarine = Ship.new("Submarine", 2)
         @game = Game.new(@player_board, @board, @computer)
-
+        @player_cruiser = Ship.new("Cruiser", 3)
+        @player_submarine = Ship.new("Submarine", 2)
+        @computer_cruiser = Ship.new("Cruiser", 3)
+        @computer_submarine = Ship.new("Submarine", 2)
     end
+
     describe 'starts a game' do 
         it 'exists' do
             expect(@game).to be_an_instance_of(Game)
-        end
-    end
-
-    describe '#setup' do
-        xit 'prompts player to place ships' do #idk how to test this but pretend the codes exists and works
-            @game.place_player_ships
-        end
-
-        it 'sets up computers ships' do
-            @game.place_computer_ships
-            placed_cells = @board.cells.values.select { |cell| !cell.empty? }
-            expect(placed_cells.length).to eq(3)
-    
-            placed_cells.each do |cell|
-            expect(cell.ship).to eq(@cruiser)
-        end
-    end
-
-    describe '#display_boards' do #needs to display comp board first then play board true
-        it 'can display boards' do
-            @game.place_computer_ships
-            @board.render
-            #cant test player boards cause needs player input
+            expect(@game.player_board).to eq(@player_board)
+            expect(@game.computer_board).to eq(@computer_board)
+            expect(@game.computer).to eq(@computer)
         end
     end
 
     describe 'player turn' do
-        xit 'has a turn' do
-            #yeah pretend there is a test here but yeah just copy it from the runner the player shoots loop
+        it "fires upon a valid coordinate on the computer's board" do
+            @computer_board.place(@computer_cruiser, ["A1", "A2", "A3"])
+            expect(@computer_board.cells["A1"].fired_upon?).to be false
+      
+            @game.player_turn("A1")
+      
+            expect(@computer_board.cells["A1"].fired_upon?).to be true
+            expect(@computer_board.cells["A1"].render).to eq("H")
         end
     end
+
     describe '#computer_turn' do
-        it 'has a turn' do 
-            @game.computer_turn
-            coordinate = @computer.fire_at_random(@player_board)
-            inital_shot_result = @player_board.cells[coordinate].render
-            expect(["M", "H", "X"]).to include(inital_shot_result)
+        it "fires at a valid random coordinate on the player's board" do
+            @player_board.place(@player_cruiser, ["A1", "A2", "A3"])
+  
+            initial_fired_upon = @player_board.cells.values.count { |cell| cell.fired_upon? }
+            @round.computer_turn
+  
+            final_fired_upon = @player_board.cells.values.count { |cell| cell.fired_upon? }
+            expect(final_fired_upon).to eq(initial_fired_upon + 1)
+        end
+    end
+
+    describe "#game_over?" do
+        it "ends the game when all of player's ships are sunk" do
+            @player_board.place(@player_cruiser, ["A1", "A2", "A3"])
+            @player_board.place(@player_submarine, ["B1", "B2"])
+
+            @player_board.cells["A1"].fire_upon
+            @player_board.cells["A2"].fire_upon
+            @player_board.cells["A3"].fire_upon
+            @player_board.cells["B1"].fire_upon
+            @player_board.cells["B2"].fire_upon
+
+            expect(@round.all_ships_sunk?(@player_board)).to be true
+            expect(@round.game_over?).to be true
+        end
+
+        it "ends the game when all of computer's ships are sunk" do
+            @computer_board.place(@computer_cruiser, ["A1", "A2", "A3"])
+            @computer_board.place(@computer_submarine, ["B1", "B2"])
+  
+            @computer_board.cells["A1"].fire_upon
+            @computer_board.cells["A2"].fire_upon
+            @computer_board.cells["A3"].fire_upon
+            @computer_board.cells["B1"].fire_upon
+            @computer_board.cells["B2"].fire_upon
+  
+            expect(@round.all_ships_sunk?(@computer_board)).to be true
+            expect(@round.game_over?).to be true
         end
     end
 end
