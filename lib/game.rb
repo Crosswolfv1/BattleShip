@@ -122,6 +122,22 @@ class Game
         puts "==============PLAYER BOARD=============="
         puts @player_board.render(true)
     end
-    
+
+    def all_ships_sunk?(board)
+        board.cells.values.all? { |cell| cell.empty? || cell.ship.sunk? }
+    end
+
+    def game_over?
+        all_ships_sunk(@player_board) || all_ships_sunk?(@computer_board)
+    end
+
+    def end_game_message
+        if all_ships_sunk?(@player_board)
+            puts "You lose! Better luck next time."
+        else
+            puts "You Win! GOOD JOB!"
+        end
+        welcome_message
+    end
 
 end
