@@ -58,4 +58,22 @@ class Game
         puts "Player has placed their ships."
         puts @player_board.render(true)
     end
+
+    def computer_random_placement(ship)
+        coordinates = @computer.generate_random_coordinate(ship)
+        until @computer_board.valid_placement?(ship, coordinates)
+            coordinates = @computer.generate_random_coordinate(ship)
+        end
+        @computer_board.place(ship, coordinates)
+    end 
+
+    def place_computer_ships
+        cruiser = Ship.new("Cruiser", 3)
+        submarine = Ship.new("Submarine", 2)
+
+        computer_random_placement(cruiser)
+        computer_random_placement(submarine)
+
+        puts "I have placed my ships."
+    end
 end
