@@ -115,5 +115,13 @@ class Game
         coordinate = @computer.fire_at_random(@player_board)
         puts "Computer fired at #{coordinate}. Result: #{@player_board.cells[coordinate].render}"
     end
+
+    def display_boards
+        puts "=============COMPUTER BOARD============="
+        puts @comp_board.render
+        puts "==============PLAYER BOARD=============="
+        puts @player_board.render(true)
+    end
     
+
 end
