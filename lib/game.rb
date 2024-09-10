@@ -31,29 +31,26 @@ class Game
     end
 
     def place_player_ships
-        cruiser = Ship.new("Cruiser", 3)
-        submarine = Ship.new("Submarine", 2)
-
         puts @player_board.render(true)
 
         #place the cruiser
         puts "Enter the coordinates you would like to place your cruiser (3 are needed):"
         input = gets.chomp.upcase.split
-        until @player_board.valid_placement?(cruiser, input)
+        until @player_board.valid_placement?(@player_cruiser, input)
             puts "Invalid coordinates: Try again..."
             input = gets.chomp.upcase.split
         end
-        @player_board.place(cruiser, input)
+        @player_board.place(@player_cruiser, input)
 
         #place submarine
         puts @player_board.render(true)
         puts "Enter the coordinates you would like to place your submarine (2 are needed):"
         input = gets.chomp.upcase.split
-        until @player_board.valid_placement?(submarine, input)
+        until @player_board.valid_placement?(@player_submarine, input)
             puts "Invalid coordinates: Try again..."
             input = gets.chomp.upcase.split
         end
-        @player_board.place(submarine, input)
+        @player_board.place(@player_submarine, input)
 
         puts "Player has placed their ships."
         puts @player_board.render(true)
@@ -68,11 +65,11 @@ class Game
     end 
 
     def place_computer_ships
-        cruiser = Ship.new("Cruiser", 3)
-        submarine = Ship.new("Submarine", 2)
+        cruiser2 = Ship.new("Cruiser", 3)
+        submarine2 = Ship.new("Submarine", 2)
 
-        computer_random_placement(cruiser)
-        computer_random_placement(submarine)
+        computer_random_placement(cruiser2)
+        computer_random_placement(submarine2)
 
         puts "I have placed my ships."
     end
@@ -98,7 +95,7 @@ class Game
     end_game_message
     end
 
-    def player_turn
+    def player_turn(coordinate)
         puts "It's your turn! Enter a coordinate to fire upon:"
         coordinate = gets.chomp.upcase
         until @computer_board.valid_coordinate?(coordinate) && !@computer_board.cells[coordinate].fired_upon?
@@ -128,8 +125,8 @@ class Game
     end
 
     def game_over?
-        all_ships_sunk(@player_board) || all_ships_sunk?(@computer_board)
-    end
+        all_ships_sunk?(@player_board) || all_ships_sunk?(@computer_board)
+    end      
 
     def end_game_message
         if all_ships_sunk?(@player_board)
