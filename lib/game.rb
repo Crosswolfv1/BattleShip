@@ -76,4 +76,26 @@ class Game
 
         puts "I have placed my ships."
     end
+
+    def setup_phase
+        puts "I have placed my ships."
+        puts "It's your turn to place ships."
+        place_player_ships
+        place_computer_ships
+    end
+
+    #main game loop
+    def game_loop
+        until game_over?
+            player_turn
+            break if game_over?
+
+            computer_turn
+            break if game_over?
+
+            display_boards
+        end
+    end_game_message
+    end
+    
 end
