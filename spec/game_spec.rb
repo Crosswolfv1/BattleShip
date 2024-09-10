@@ -16,12 +16,23 @@ RSpec describe Game do
         it 'exists' do
             expect(@game).to be_an_instance_of(Game)
             expect(@game.player_board).to eq(@player_board)
-            expect(@game.computer_board).to eq(@computer_board)
+            expect(@game.computer_board).to eq(@board)
             expect(@game.computer).to eq(@computer)
         end
     end
 
-    describe 'player turn' do
+    describe 'player places ships' do
+        xit 'prompts the player and places ships on the board' do
+        #   allow(@game).to receive(:gets).and_return("A1 A2 A3")
+          
+        #   expect(@player_board.cells["A1"].ship).to be_an_instance_of(Ship)
+        #   expect(@player_board.cells["A2"].ship).to be_an_instance_of(Ship)
+        #   expect(@player_board.cells["A3"].ship).to be_an_instance_of(Ship)
+        end
+      end
+
+    
+      describe 'player turn' do
         it "fires upon a valid coordinate on the computer's board" do
             @computer_board.place(@computer_cruiser, ["A1", "A2", "A3"])
             expect(@computer_board.cells["A1"].fired_upon?).to be false
