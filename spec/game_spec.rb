@@ -25,8 +25,9 @@ RSpec.describe Game do
         it 'prompts the player and places ships on the board' do
             allow($stdout).to receive(:puts)
             allow_any_instance_of(Game).to receive(:gets).and_return("A1 A2 A3", "B1 B2")
-            
-            @game.place_player_ships
+
+            @game.place_player_ships(@player_cruiser)  #modified to specify which ship is being placed
+            @game.place_player_ships(@player_submarine) #allows for custom ship values
           
             expect(@player_board.cells["A1"].ship).to be_an_instance_of(Ship)
             expect(@player_board.cells["A2"].ship).to be_an_instance_of(Ship)
@@ -34,10 +35,21 @@ RSpec.describe Game do
             expect(@player_board.cells["B1"].ship).to be_an_instance_of(Ship)
             expect(@player_board.cells["B2"].ship).to be_an_instance_of(Ship)
         end
-      end
+    end
 
+    describe 'computer places ships' do 
+        it 'can place ships' do
+            @game.place_computer_ships(@computer_cruiser)
+            @game.place_computer_ships(@computer_submarine)
+            placed_cells = @computer_board.cells.values.select { |cell| !cell.empty? }
     
-      describe 'player turn' do
+            placed_cells.each do |cell|
+            expect(cell.ship).to be_an_instance_of(Ship)
+            end
+        end
+    end
+    
+    describe 'player turn' do
         it "fires upon a valid coordinate on the computer's board" do
             allow($stdout).to receive(:puts)
 
