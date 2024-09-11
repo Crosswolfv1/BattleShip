@@ -51,7 +51,7 @@ class Board
     end
 
     def render(unhidden = false)
-        output = "  1 2 3 4 \n"
+        output = "  " + (1..@size).map(&:to_s).join(" ") + "\n"
         rows = ("A"..(65+@size-1).chr).map do |row|
             contents = (1..@size).map do |col|
                 coordinate = "#{row}#{col}"
