@@ -1,6 +1,7 @@
 class Board
 
-    attr_reader :cells, :size
+    attr_reader :cells 
+    attr_accessor :size
 
     def initialize(size = 4)# no argument needed
         @size = size
