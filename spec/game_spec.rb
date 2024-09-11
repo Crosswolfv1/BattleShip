@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Game do  # Use `describe` here for the Game class
   before(:each) do
     allow($stdout).to receive(:puts)
-    allow_any_instance_of(Game).to receive(:gets).and_return("4","A1 A2 A3", "B1 B2")
+    allow_any_instance_of(Game).to receive(:gets).and_return("4","n","A1 A2 A3", "B1 B2")
     @game = Game.new
     @game.setup_phase
     @player_cruiser = Ship.new("Cruiser", 3)
