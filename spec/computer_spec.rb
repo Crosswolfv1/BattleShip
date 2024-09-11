@@ -35,8 +35,8 @@ RSpec.describe Computer do
             row = coordinate[0]
             col = coordinate[1..-1].to_i
 
-            expect(("A".."D").to_a).to include(row)
-            expect((1..4).to_a).to include(col)
+            expect(("A"..(65+@board.size-1).chr).to_a).to include(row)
+            expect((1..@board.size).to_a).to include(col)
         end
     end
 
