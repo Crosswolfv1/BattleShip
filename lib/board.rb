@@ -1,15 +1,16 @@
 class Board
 
-    attr_reader :cells
+    attr_reader :cells, :size
 
-    def initialize# no argument needed
-    @cells = create_cell #create the cell
+    def initialize(size = 4)# no argument needed
+        @size = size
+        @cells = create_cell #create the cell
     end
 
     def create_cell# we need to create the board and that requires create_cells 4x4
         cells = {} # makes a Hash
-        ("A".."D").each do |row|# this goes A->D in a row <--->
-            (1..4).each do |col|# this goes 1->4 in a column ^----v
+        ("A"..(65+@size-1).chr).each do |row|# this goes A->D in a row <--->
+            (1..@size).each do |col|# this goes 1->4 in a column ^----v
                 coordinate = "#{row}#{col}"# we will give what the coordinate is to return our cell
                 cells[coordinate] = Cell.new(coordinate)
             end
@@ -50,8 +51,8 @@ class Board
 
     def render(unhidden = false)
         output = "  1 2 3 4 \n"
-        rows = ("A".."D").map do |row|
-            contents = (1..4).map do |col|
+        rows = ("A"..(65+@size-1).chr).map do |row|
+            contents = (1..@size).map do |col|
                 coordinate = "#{row}#{col}"
                 @cells[coordinate].render(unhidden)
             end.join(" ")
