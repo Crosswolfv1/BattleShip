@@ -30,46 +30,51 @@ class Game
             end
     end
 
-    def place_player_ships
-        puts @player_board.render(true)
-
+    def place_player_ships(ship) #modified so it takes an input as @player_<ship> is an unknown variable
+        puts @player_board.render(true) #so it was pushing a nil value into the test recommend create a for each
+                                        #and have an array of ships with a default cruiser and submarine
+                                        # for each |ship| comp_ship1 = ship.new(ship, ship.length) perhaps and push 
+                                        #those inot a computer ship and playership array then another foreach ship player places
         #place the cruiser
         puts "Enter the coordinates you would like to place your cruiser (3 are needed):"
         input = gets.chomp.upcase.split
-        until @player_board.valid_placement?(@player_cruiser, input)
+        until @player_board.valid_placement?(ship, input)
             puts "Invalid coordinates: Try again..."
             input = gets.chomp.upcase.split
         end
-        @player_board.place(@player_cruiser, input)
+        @player_board.place(ship, input)
+
+        #the below code is rendered irrelavent with the chnages to the above code
 
         #place submarine
-        puts @player_board.render(true)
-        puts "Enter the coordinates you would like to place your submarine (2 are needed):"
-        input = gets.chomp.upcase.split
-        until @player_board.valid_placement?(@player_submarine, input)
-            puts "Invalid coordinates: Try again..."
-            input = gets.chomp.upcase.split
-        end
-        @player_board.place(@player_submarine, input)
+        # puts @player_board.render(true)
+        # puts "Enter the coordinates you would like to place your submarine (2 are needed):"
+        # input = gets.chomp.upcase.split
+        # until @player_board.valid_placement?(@player_submarine, input)
+        #     puts "Invalid coordinates: Try again..."
+        #     input = gets.chomp.upcase.split
+        # end
+        # @player_board.place(@player_submarine, input)
 
         puts "Player has placed their ships."
         puts @player_board.render(true)
     end
 
-    def computer_random_placement(ship)
-        coordinates = @computer.generate_random_coordinate(ship)
-        until @computer_board.valid_placement?(ship, coordinates)
-            coordinates = @computer.generate_random_coordinate(ship)
-        end
-        @computer_board.place(ship, coordinates)
-    end 
+    # def computer_random_placement(ship)   #this is unneeded as the computer class already provides coordinates
+    #     coordinates = []
+      
+    #     until @computer_board.valid_placement?(ship, coordinates)
+    #         binding.pry
+    #         coordinates << @computer.generate_random_coordinate
+    #     end
+    #     @computer_board.place(ship, coordinates)
+    # end 
 
-    def place_computer_ships
-        cruiser2 = Ship.new("Cruiser", 3)
-        submarine2 = Ship.new("Submarine", 2)
-
-        computer_random_placement(cruiser2)
-        computer_random_placement(submarine2)
+    def place_computer_ships(ship)  #refactored this function to use the computer methods to place its ships
+        computer.place_ships_randomly(ship)  #recommend making it a foreach liek player placed  to place multiple ships from a ship array
+        # cruiser2 = Ship.new("Cruiser", 3) 
+        # computer_random_placement(cruiser2)
+        # # computer_random_placement(submarine2)
 
         puts "I have placed my ships."
     end
