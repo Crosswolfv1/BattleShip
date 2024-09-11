@@ -95,17 +95,17 @@ RSpec.describe Board do
 
     describe "#render" do
         it 'can show a board' do
-            expect(@board.render).to eq("  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n")
+            expect(@board.render).to eq("  1\t2\t3\t4\nA .\t.\t.\t. \nB .\t.\t.\t. \nC .\t.\t.\t. \nD .\t.\t.\t. \n")
         end
 
         it 'can show a board with ships shown' do
             @board.place(@cruiser, ["A1", "A2", "A3"])
-            expect(@board.render(true)).to eq("  1 2 3 4 \nA S S S . \nB . . . . \nC . . . . \nD . . . . \n")
+            expect(@board.render(true)).to eq("  1\t2\t3\t4\nA S\tS\tS\t. \nB .\t.\t.\t. \nC .\t.\t.\t. \nD .\t.\t.\t. \n")
         end
 
         it "wont show a ship w/o true" do
             @board.place(@cruiser, ["A1", "A2", "A3"])
-            expect(@board.render).to eq("  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n")
+            expect(@board.render).to eq("  1\t2\t3\t4\nA .\t.\t.\t. \nB .\t.\t.\t. \nC .\t.\t.\t. \nD .\t.\t.\t. \n")
         end
     end
 
