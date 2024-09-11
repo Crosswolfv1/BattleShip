@@ -29,7 +29,7 @@ class Board
         return false unless coordinates.all? { |coordinate| @cells[coordinate].empty? }
 
          coverted_coordinates = coordinates.map do |coordinate|
-            [coordinate[0].ord, coordinate[1].to_i]
+            [coordinate[0].ord, coordinate[1..2].to_i]
             end
             coverted_coordinates.each_cons(2).all? {|(row1, col1), (row2, col2)|
                 if row1 == row2
