@@ -110,5 +110,16 @@ RSpec.describe Board do
         end
     end
 
+    describe 'board can be variable sizes' do
+        it 'makes a default of a 4x4' do
+            expect(@board.cells.count).to eq(16)
+        end
+
+        it 'can make a board 10*10' do
+            @board2 = Board.new(10)
+            expect(@board2.cells.count).to eq(100)
+        end
+    end
+
 
 end
