@@ -58,6 +58,10 @@ class Game
     def setup_phase
         puts "Enter a number for the size of the board (min 4):"
         size = gets.chomp.to_i
+        until size >= 4
+            puts "board size has be bigger than 4x4. Try again."
+            size = gets.chomp.to_i
+        end
         @player_board = Board.new(size)
         @computer_board = Board.new(size)
         @computer = Computer.new(@computer_board)
@@ -69,6 +73,31 @@ class Game
             Ship.new("Cruiser", 3),
             Ship.new("Submarine", 2)
         ]
+        loop do
+        puts "Would you like to make a custom ship? (y/n)"
+        custom_ship_response = gets.chomp.downcase
+            break if custom_ship_response == 'n'
+
+                if custom_ship_response == 'y'
+                puts "Enter the name of your ship:"
+                custom_name = gets.chomp.capitalize
+
+                custom_length = 0
+                until custom_length > 0 && custom_length <= @player_board.size
+                    puts "Enter the length of your ship:"
+                    custom_length = gets.chomp.to_i
+
+                    if custom_length > @player_board.size
+                        puts " Ship length cannot be larger than the board, Try Again."
+                    elsif custom_length <= 0
+                        puts "Ship length must be greater than 0. Try again."
+                    end
+                end
+
+                custom_ship = Ship.new(custom_name, custom_length)
+                @player_ships << custom_ship
+            end
+        end
         puts "I have placed my ships."
         puts "It's your turn to place ships."
         place_player_ships
