@@ -5,18 +5,7 @@ class Game
                 :player_ships,
                 :computer_ships
 
-    def initialize(player_board, computer_board, computer)
-        @player_board = player_board
-        @computer_board = computer_board
-        @computer = computer
-        @player_ships = [
-            Ship.new("Cruiser", 3),
-            Ship.new("Submarine", 2)
-        ]
-        @computer_ships = [
-            Ship.new("Cruiser", 3),
-            Ship.new("Submarine", 2)
-        ]
+    def initialize
     end
     
     def start
@@ -64,10 +53,20 @@ class Game
         computer.place_ships_randomly(ship)
         end
         
-        puts "I have placed my ships."
     end
 
     def setup_phase
+        @player_board = Board.new
+        @computer_board = Board.new
+        @computer = Computer.new(@computer_board)
+        @player_ships = [
+            Ship.new("Cruiser", 3),
+            Ship.new("Submarine", 2)
+        ]
+        @computer_ships = [
+            Ship.new("Cruiser", 3),
+            Ship.new("Submarine", 2)
+        ]
         puts "I have placed my ships."
         puts "It's your turn to place ships."
         place_player_ships
@@ -85,10 +84,11 @@ class Game
 
             display_boards
         end
+
     end_game_message
     end
 
-    def player_turn(coordinate)
+    def player_turn
         puts "It's your turn! Enter a coordinate to fire upon:"
         coordinate = gets.chomp.upcase
         until @computer_board.valid_coordinate?(coordinate) && !@computer_board.cells[coordinate].fired_upon?
@@ -108,7 +108,7 @@ class Game
 
     def display_boards
         puts "=============COMPUTER BOARD============="
-        puts @comp_board.render
+        puts @computer_board.render
         puts "==============PLAYER BOARD=============="
         puts @player_board.render(true)
     end
@@ -127,7 +127,7 @@ class Game
         else
             puts "You Win! GOOD JOB!"
         end
-        welcome_message
+        start
     end
 
 end
