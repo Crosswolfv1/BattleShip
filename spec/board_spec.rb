@@ -56,7 +56,6 @@ RSpec.describe Board do
     end
 
     describe '#place' do
-
         it 'places ships' do
             @board.place(@cruiser, ["A1", "A2", "A3"])
             cell_1 = @board.cells["A1"]
@@ -120,6 +119,4 @@ RSpec.describe Board do
             expect(@board2.cells.count).to eq(100)
         end
     end
-
-
 end
