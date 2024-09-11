@@ -26,8 +26,7 @@ RSpec.describe Game do
             allow($stdout).to receive(:puts)
             allow_any_instance_of(Game).to receive(:gets).and_return("A1 A2 A3", "B1 B2")
 
-            @game.place_player_ships(@player_cruiser)  #modified to specify which ship is being placed
-            @game.place_player_ships(@player_submarine) #allows for custom ship values
+            @game.place_player_ships #allows for custom ship values
           
             expect(@player_board.cells["A1"].ship).to be_an_instance_of(Ship)
             expect(@player_board.cells["A2"].ship).to be_an_instance_of(Ship)
@@ -39,8 +38,9 @@ RSpec.describe Game do
 
     describe 'computer places ships' do 
         it 'can place ships' do
-            @game.place_computer_ships(@computer_cruiser)
-            @game.place_computer_ships(@computer_submarine)
+            allow($stdout).to receive(:puts)
+            @game.place_computer_ships
+            
             placed_cells = @computer_board.cells.values.select { |cell| !cell.empty? }
     
             placed_cells.each do |cell|
