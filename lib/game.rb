@@ -96,6 +96,7 @@ class Game
 
                 custom_ship = Ship.new(custom_name, custom_length)
                 @player_ships << custom_ship
+                @computer_ships << custom_ship
             end
         end
         puts "I have placed my ships."
