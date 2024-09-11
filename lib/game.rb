@@ -56,8 +56,10 @@ class Game
     end
 
     def setup_phase
-        @player_board = Board.new
-        @computer_board = Board.new
+        puts "Enter a number for the size of the board (min 4):"
+        size = gets.chomp.to_i
+        @player_board = Board.new(size)
+        @computer_board = Board.new(size)
         @computer = Computer.new(@computer_board)
         @player_ships = [
             Ship.new("Cruiser", 3),
