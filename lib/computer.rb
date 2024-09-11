@@ -13,20 +13,20 @@ class Computer
 
         while coordinates.length != length
             coordinates.clear
-            possible_rows = ("A".."D").to_a.sample
-            possible_cols = (1..4).to_a.sample
+            possible_rows = ("A"..(65+@board.size-1).chr).to_a.sample
+            possible_cols = (1..@board.size).to_a.sample
             orientation = ["horizontal", "vertical"].sample
             if orientation =="horizontal"
                 length.times do |i| 
                     col = possible_cols + i
-                    if col <= 4
+                    if col <= @board.size
                         coordinates << "#{possible_rows}#{col}"
                     end
                 end
             else orientation == "vertical"
                 length.times do |o|
                     row = (possible_rows.ord + o).chr
-                    if row <= "D"
+                    if row <= (65+@board.size-1).chr
                         coordinates << "#{row}#{possible_cols}"
                     end
                 end
@@ -47,8 +47,8 @@ class Computer
     end
 
     def generate_random_coordinate
-        rows = ("A".."D").to_a
-        cols = (1..4).to_a
+        rows = ("A"..(65+@board.size-1).chr).to_a
+        cols = (1..@board.size).to_a
         "#{rows.sample}#{cols.sample}"
     end
 
