@@ -56,10 +56,10 @@ class Game
     end
 
     def setup_phase
-        puts "Enter a number for the size of the board (min 4):"
+        puts "Enter a number for the size of the board (min 4,max 30):"
         size = gets.chomp.to_i
-        until size >= 4
-            puts "board size has be bigger than 4x4. Try again."
+        until size >= 4 && size <= 30
+            puts "board size has be bigger than 4x4 & smaller than 30x30. Try again."
             size = gets.chomp.to_i
         end
         @player_board = Board.new(size)
