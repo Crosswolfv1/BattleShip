@@ -94,9 +94,10 @@ class Game
                     end
                 end
 
-                custom_ship = Ship.new(custom_name, custom_length)
-                @player_ships << custom_ship
-                @computer_ships << custom_ship
+                custom_ship1 = Ship.new(custom_name, custom_length)
+                custom_ship2 = Ship.new(custom_name, custom_length)
+                @player_ships << custom_ship1
+                @computer_ships << custom_ship2
             end
         end
         puts "I have placed my ships."
