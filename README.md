@@ -1,4 +1,4 @@
-# BattleShip
+# BattleShip DO 'bundle install' prior to running the game
 ## This is the README for the Battleship project for Jeremiah & Montana
 1. Iteration 3 did not provide an interaction pattern. How did you approach designing this iteration? If you did not get to Iteration 3, reflect on how you think you would’ve approached the design and problem solving process.
 > We sat down in a slack huddle and created 95 lines of pseudocode following the requirements and how it would function, then we modified it further to be functional to determine how the code should be written, we then created a game class to handle all the functions and migrated them to that class
