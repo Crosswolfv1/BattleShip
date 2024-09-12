@@ -1,4 +1,7 @@
+require 'ruby2d'
+
 class Game
+
     attr_reader :player_board,
                 :computer_board,
                 :computer,
@@ -6,6 +9,9 @@ class Game
                 :computer_ships
 
     def initialize
+        @hit_sound = Sound.new('sound/WW_Salvatore_Kerboom.wav')
+        @miss_sound = Sound.new('sound/WW_Salvatore_Sploosh.wav')
+
     end
     
     def start
@@ -129,6 +135,13 @@ class Game
             coordinate = gets.chomp.upcase
         end
         @computer_board.cells[coordinate].fire_upon
+        result = @computer_board.cells[coordinate].render
+
+            if result == 'H' || result == 'X'
+                @hit_sound.play
+            elsif result == 'M'
+                @miss_sound.play
+            end
 
         puts "You fired at #{coordinate}. Result: #{@computer_board.cells[coordinate].render}"
     end
@@ -136,6 +149,7 @@ class Game
     def computer_turn
         puts "Computer's turn..."
         coordinate = @computer.fire_at_random(@player_board)
+        
         puts "Computer fired at #{coordinate}. Result: #{@player_board.cells[coordinate].render}"
     end
 
