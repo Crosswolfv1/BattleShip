@@ -9,8 +9,8 @@ class Game
                 :computer_ships
 
     def initialize
-        @hit_sound = Sound.new('sound/hit.mp3')
-        @miss_sound = Sound.new('sound/miss.mp3')
+        @hit_sound = Sound.new('sound/WW_Salvatore_Kerboom.wav')
+        @miss_sound = Sound.new('sound/WW_Salvatore_Sploosh.wav')
 
     end
     
